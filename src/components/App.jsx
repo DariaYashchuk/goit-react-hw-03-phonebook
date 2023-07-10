@@ -56,12 +56,18 @@ export class App extends Component {
     );
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     const visibleContacts = this.getVisibleContacts();
 
     const { filter, contacts } = this.state;
     return (
-      <div className='container'>
+      <div className="container">
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.formSubmitHandler} contacts={contacts} />
 
